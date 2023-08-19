@@ -14,7 +14,7 @@ public class DemoController {
 	}
 	
 	@GetMapping("/demo2")
-	@PreAuthorize("hasAuthority('read', 'write')")
+	@PreAuthorize("hasAnyAuthority('read', 'write')")
 	String demo2() {
 		return "데모2.";
 	}
