@@ -30,6 +30,12 @@ public class SecurityConfig {
 		var udm = new InMemoryUserDetailsManager();
 		udm.createUser(park);
 		
+		UserDetails will = User.withUsername("will")
+				.password(passwordEncoder().encode("1234"))
+				.authorities("write")
+				.build();
+		udm.createUser(will);
+		
 		return udm;
 	}
 	
