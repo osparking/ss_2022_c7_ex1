@@ -7,10 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 	
-	@GetMapping("/demo")
+	@GetMapping("/demo1")
 	@PreAuthorize("hasAuthority('read')")
-	String demo() {
-		return "데모.";
+	String demo1() {
+		return "데모1.";
+	}
+	
+	@GetMapping("/demo2")
+	@PreAuthorize("hasAuthority('read', 'write')")
+	String demo2() {
+		return "데모2.";
 	}
 
 }
