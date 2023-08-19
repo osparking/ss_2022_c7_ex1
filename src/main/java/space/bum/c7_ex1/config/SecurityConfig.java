@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -23,7 +24,11 @@ public class SecurityConfig {
 				.password("1234")
 				.authorities("read")
 				.build();
-		return null;
+		
+		var udm = new InMemoryUserDetailsManager();
+		udm.createUser(park);
+		
+		return udm;
 	}
 
 }
