@@ -1,5 +1,8 @@
 package space.bum.c7_ex1.controllers;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,6 +42,13 @@ public class DemoController {
 	@PreAuthorize("@demo4CondEvaler.condition(#somebody)")
 	String demo4(@PathVariable("somebody") String somebody) {
 		return "데모 4 : " + somebody;
+	}
+	
+	@GetMapping("/demo5")
+	@PostAuthorize("returnObject != '데모 5'")
+	String demo5(HttpServletResponse resp) {
+		System.out.println(":-)");
+		return "데모 5";
 	}
 
 }
