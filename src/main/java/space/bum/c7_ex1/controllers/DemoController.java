@@ -1,6 +1,8 @@
 package space.bum.c7_ex1.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,9 +26,12 @@ public class DemoController {
 	@PreAuthorize("#something == authentication.name")
 	String demo3(@PathVariable("smth") String something) {
 		StringBuffer sb = new StringBuffer("'");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		sb.append(something);
 		sb.append("'를 위한 데모");
+		sb.append("auth.name : ");
+		sb.append(auth.getName());
 		return sb.toString();
 	}
 
