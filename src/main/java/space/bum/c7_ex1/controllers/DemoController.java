@@ -34,5 +34,11 @@ public class DemoController {
 		sb.append(auth.getName());
 		return sb.toString();
 	}
+	
+	@GetMapping("/demo4/{somebody}")
+	@PreAuthorize("@demo4CondEvaler.condition(#somebody)")
+	String demo4(@PathVariable("somebody") String somebody) {
+		return "데모 4 : " + somebody;
+	}
 
 }
