@@ -1,13 +1,17 @@
 package space.bum.c7_ex1.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -45,10 +49,17 @@ public class DemoController {
 	}
 	
 	@GetMapping("/demo5")
-	@PostAuthorize("returnObject != '데모 5'")
+	@PostAuthorize("returnObject == '데모 5'")
 	String demo5(HttpServletResponse resp) {
 		System.out.println(":-)");
 		return "데모 5";
+	}
+	
+	@GetMapping("/demo6")
+	@PreFilter("filterObject.contains('a')")
+	String demo6(@RequestBody List<String> values) {
+		System.out.println("값:" + values);
+		return "데모 6";
 	}
 
 }
