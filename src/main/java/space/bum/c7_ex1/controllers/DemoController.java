@@ -4,11 +4,13 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.core.Authentication;
@@ -70,6 +72,15 @@ public class DemoController {
     		true, StandardCharsets.UTF_8));
 		System.out.println("값:" + values);
 		return "데모 6";
+	}
+	
+	@GetMapping("/demo7")
+	@PostFilter("filterObject.contains('a')")
+	List<String> demo7() {
+		var fruits = new ArrayList<String>();
+		fruits.addAll(List.of("strawberry", "melon", "mango", "kiwi"));
+		
+		return fruits;
 	}
 
 }
