@@ -1,5 +1,9 @@
 package space.bum.c7_ex1.controllers;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +16,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+
+@RequestMapping(produces = "application/hal+json;charset=UTF-8")
 public class DemoController {
 
 	@GetMapping("/demo1")
@@ -58,6 +65,9 @@ public class DemoController {
 	@GetMapping("/demo6")
 	@PreFilter("filterObject.contains('a')")
 	String demo6(@RequestBody List<String> values) {
+    System.setOut(new PrintStream(
+    		new FileOutputStream(FileDescriptor.out), 
+    		true, StandardCharsets.UTF_8));
 		System.out.println("값:" + values);
 		return "데모 6";
 	}
